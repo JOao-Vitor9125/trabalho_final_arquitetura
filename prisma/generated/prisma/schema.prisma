@@ -1,0 +1,27 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model rents {
+  id        Int      @id @default(autoincrement())
+  data_in   DateTime
+  data_out  DateTime
+  car_placa String   @unique
+  car       cars     @relation(fields: [car_placa], references: [placa])
+}
+
+model cars {
+  placa  String  @unique
+  ano    Int
+  cor    String
+  rented Boolean
+  rent   rents?
+}
