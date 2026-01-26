@@ -1,19 +1,14 @@
-import { injectable } from "inversify";
-import {ICarRepo} from "../repositories/ICarRepository";
+export class Car {
+    constructor(
+        public readonly placa: string, 
+        public readonly ano:number, 
+        public readonly cor:string, 
+        public isRented:boolean = false){}
 
-@injectable()
-export class Car implements ICarRepo{
-    constructor(private placa: string, private ano:number, private cor:string, private rented:boolean){
-        this.rented=false;
-    }
-
-    public details():void{
-        console.log(`Placa: ${this.placa} | Ano: ${this.ano} | Cor: ${this.cor}`)
-    }
-
-    public isRented():boolean{
-        if(this.rented === true) return true;
-
-        return false;
+    markAsRented(){
+        if(this.isRented = true){
+            throw new Error (`O carro está alugado`)
+        }
+        this.isRented=true;
     }
 }
