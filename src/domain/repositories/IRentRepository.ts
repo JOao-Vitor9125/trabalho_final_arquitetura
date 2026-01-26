@@ -1,5 +1,7 @@
-import { Car } from "../entities/Car";
+import { Rental } from "../entities/Rental";
 
 export interface IRentRepo{
-    Rent(car:Car):boolean;
+    create(rental: Rental):void;
+    findRentalByTenant(tenat_id:string):Rental | null;
 }
+
