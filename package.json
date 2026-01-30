@@ -10,7 +10,6 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@prisma/client": "^7.3.0",
     "better-sqlite3": "^12.6.2",
     "inversify": "^7.11.0",
     "reflect-metadata": "^0.2.2",

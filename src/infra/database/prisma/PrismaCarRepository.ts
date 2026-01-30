@@ -1,5 +1,5 @@
 import { injectable } from "inversify";
-import { Prisma, PrismaClient } from "../../../../prisma/generated/prisma";
+import { PrismaClient } from "@prisma/client";
 import { ICarRepo } from "../../../domain/repositories/ICarRepository";
 import { Car } from "../../../domain/entities/Car";
 

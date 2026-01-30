@@ -10,19 +10,21 @@ datasource db {
 }
 
 model rents{
-  id Int  @id @default(autoincrement())
-  data_in DateTime
-  data_out  DateTime
-  car_placa String  @unique
+  id String  @id @default(uuid())
+  userId String
+  carId String
+  startDate DateTime @default(now())
+  endDate  DateTime?
+  car_placa String 
   car cars @relation(fields:[car_placa], references:[placa])
 }
 
 model cars{
-  placa String  @unique
+  placa String  @id
   ano Int 
   cor String
   rented  Boolean
-  rent rents?
+  rent rents[]
 }
 
 
