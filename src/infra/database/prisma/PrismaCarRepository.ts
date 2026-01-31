@@ -6,22 +6,17 @@ import { Car } from "../../../domain/entities/Car";
 const prisma = new PrismaClient()
 
 @injectable()
-export class PrimaCarRepository implements ICarRepo{
-     details(): void {
-        console.log('Repositório de Carros');
-    }
-
-
-    async findByLicensePlate(placa: string): Promise< Car | null >{
+export class PrismaCarRepository implements ICarRepo{
+    async findById(id: string): Promise< Car | null >{
         const carData = await prisma.cars.findUnique({
-            where:{placa: placa}
+            where:{car_id: id}
         });
 
         if (!carData) return null;
-        return new Car(carData.placa, carData.ano, carData.cor, !carData.rented);
+        return new Car(carData.placa, carData.ano, carData.cor, carData.rented);
     }
 
-    updateAvailableRent(placa: string, isRented: boolean): void{
+    async updateAvailableRent(placa: string, isRented: boolean): Promise<void>{
         const rentedStatus = isRented;
 
         prisma.cars.update({
@@ -29,8 +24,12 @@ export class PrimaCarRepository implements ICarRepo{
             data: {rented: rentedStatus}
         })
     }
-    
-    isRented(car: Car): boolean {
-        return !car.isRented;
+    async validateCar(id: string): Promise<boolean> {
+        const validCar = await this.findById(id);
+        const indisponivel = validCar?.isRented;
+        if(indisponivel) return false;
+
+        return true;
+
     }
 }

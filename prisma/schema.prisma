@@ -15,15 +15,17 @@ model rents{
   carId String
   startDate DateTime @default(now())
   endDate  DateTime?
-  car_placa String 
-  car cars @relation(fields:[car_placa], references:[placa])
+  car_placa String? 
+  car cars @relation(fields:[carId], references:[car_id])
+
 }
 
 model cars{
-  placa String  @id
+  placa String  @unique
+  car_id  String  @id @default(uuid())
   ano Int 
   cor String
-  rented  Boolean
+  rented  Boolean @default(false)
   rent rents[]
 }
 
