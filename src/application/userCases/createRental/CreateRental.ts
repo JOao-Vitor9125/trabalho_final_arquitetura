@@ -3,7 +3,7 @@ import { TYPES } from "../../../infra/containers/types";
 import { ICarRepo } from "../../../domain/repositories/ICarRepository";
 import { IRentRepo } from "../../../domain/repositories/IRentRepository";
 import { Rental } from "../../../domain/entities/Rental";
-
+import {CreateRentalDTO} from "./CreateRentalDTO";
 
 
 @injectable()
@@ -16,7 +16,7 @@ export class CreateRental{
         private rentRepo:IRentRepo
      ){}
 
-    async createRent(id_user:string, id_carro:string, devolucao:Date):Promise<Rental>{
+    async execute( {id_user, id_carro, devolucao}:CreateRentalDTO ):Promise<Rental>{
         const client_openRent = await this.rentRepo.findRentalByTenant(id_user);
         const validCar = await this.carRepo.validateCar(id_carro);
 
@@ -45,7 +45,13 @@ export class CreateRental{
 
         this.carRepo.updateAvailableRent(placa, true);
 
-        console.log("Aluguel registrado com sucesso");
+        console.log(`Operação concluida!\nDados:
+            Id do locatário: ${newRental.tenant_id} |
+            Id do carro: ${newRental.car_id} |
+            Id do aluguel: ${newRental.rent_id} |
+            Data de inicio: ${newRental.start_date} |
+            Data de fim esperada: ${newRental.end_date} |
+            Placa do carro${newRental.car_placa}`);
         
         return newRental;
     }
