@@ -1,9 +1,8 @@
 import { injectable } from "inversify";
-import { PrismaClient } from "@prisma/client";
+import {prisma} from "./prismaCliente"
 import { ICarRepo } from "../../../domain/repositories/ICarRepository";
 import { Car } from "../../../domain/entities/Car";
 
-const prisma = new PrismaClient()
 
 @injectable()
 export class PrismaCarRepository implements ICarRepo{
@@ -19,7 +18,7 @@ export class PrismaCarRepository implements ICarRepo{
     async updateAvailableRent(placa: string, isRented: boolean): Promise<void>{
         const rentedStatus = isRented;
 
-        prisma.cars.update({
+        await prisma.cars.update({
             where:{placa: placa},
             data: {rented: rentedStatus}
         })

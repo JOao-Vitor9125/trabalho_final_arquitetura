@@ -1,21 +1,19 @@
 import { injectable } from "inversify";
-import { PrismaClient } from "@prisma/client";
+import {prisma} from "./prismaCliente"
 import { IRentRepo } from "../../../domain/repositories/IRentRepository";
 import { Rental } from "../../../domain/entities/Rental";
 
-const prisma = new PrismaClient()
 
 @injectable()
 export class PrismaRentalRespository implements IRentRepo{
-    create(rental: Rental): void {
-        prisma.rents.create({
+    async create(rental: Rental): Promise<void> {
+        await prisma.rents.create({
             data: {
                 userId: rental.tenant_id,
                 carId: rental.car_id,
                 car_placa: rental.car_placa,
                 startDate: rental.start_date,
                 endDate: rental.end_date??null,
-                id: rental.rent_id!
             }
         })
     }
@@ -37,15 +35,5 @@ export class PrismaRentalRespository implements IRentRepo{
             rentalData.endDate,
             rentalData.id
         )
-    }
-
-    async validateTime(devolucao: Date): Promise<boolean> {
-        const agora = new Date();
-        const duracaoRent = devolucao.getTime() - agora.getTime();
-        const duracaoMinima = 86400000;
-        if(duracaoRent < duracaoMinima) return false
-        
-        return true;
-        
     }
 }
