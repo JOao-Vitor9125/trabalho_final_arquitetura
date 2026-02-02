@@ -43,7 +43,7 @@ export class CreateRental{
 
         await this.rentRepo.create(newRental);
 
-        this.carRepo.updateAvailableRent(placa, true);
+        await this.carRepo.updateAvailableRent(placa, true);
 
         console.log(`Operação concluida!\nDados:
             Id do locatário: ${newRental.tenant_id} |
