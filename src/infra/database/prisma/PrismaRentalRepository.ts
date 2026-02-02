@@ -18,6 +18,7 @@ export class PrismaRentalRespository implements IRentRepo{
                 carId: rental.car_id,
                 car_placa: rental.car_placa,
                 startDate: rental.start_date,
+                expectedDate: rental.expected_date,
                 endDate: rental.end_date??null,
             }
         })
@@ -28,9 +29,7 @@ export class PrismaRentalRespository implements IRentRepo{
         const rentalData = await this.prisma.rents.findFirst({
             where: {
                 userId: tenant_id,
-                endDate:{
-                    gt: agora
-                }
+                endDate: null
             }
         });
 
@@ -41,6 +40,7 @@ export class PrismaRentalRespository implements IRentRepo{
             rentalData.carId,
             rentalData.car_placa!,
             rentalData.startDate,
+            rentalData.expectedDate,
             rentalData.endDate,
             rentalData.id
         )

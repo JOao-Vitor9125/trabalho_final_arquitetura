@@ -18,7 +18,7 @@ app.post('/alugar', async(req:Request, res:Response) =>{
     const devolucao = new Date(dataDevolucao);
 
     try {
-        const rental= await alugador.execute({id_user, id_carro, devolucao})
+        await alugador.execute({id_user, id_carro, devolucao})
         return res.status(201).json({mensagem: "Aluguel registrado com sucesso"});
 
     } catch (erro) {
@@ -28,25 +28,6 @@ app.post('/alugar', async(req:Request, res:Response) =>{
         }
     }
 });
-
-/*app.post('/liberarCarro', async(req:Request, res:Response) =>{
-    const {id_carro} = req.body;
-
-    if(!id_carro){
-        return res.status(400).json({erro: "Dados incompletos"});
-    }
-    try {
-        
-        await alugador.
-
-    }catch (erro) {
-        if (erro instanceof Error) {
-
-            res.status(400).json({erro: erro.message});
-        }
-    }
-}
-);*/
 
 app.listen(PORT, () =>{
     console.log(`Servidor escutando em http://localhost:${PORT}`);

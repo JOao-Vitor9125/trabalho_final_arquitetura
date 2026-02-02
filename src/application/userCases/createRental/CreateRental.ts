@@ -39,7 +39,7 @@ export class CreateRental{
             throw new Error("Alerta! Carro já está alugado no momento");
         }
 
-        const newRental= new Rental(id_user, id_carro, placa!, agora, devolucao);
+        const newRental= new Rental(id_user, id_carro, placa!, agora, devolucao, null);
 
         await this.rentRepo.create(newRental);
 

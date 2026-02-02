@@ -15,6 +15,7 @@ model rents{
   userId String
   carId String
   startDate DateTime @default(now())
+  expectedDate DateTime
   endDate  DateTime?
   car_placa String? 
   car cars @relation(fields:[carId], references:[car_id])
