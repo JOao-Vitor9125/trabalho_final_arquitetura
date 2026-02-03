@@ -30,8 +30,9 @@ export class PrismaCarRepository implements ICarRepo{
     }
     async validateCar(id: string): Promise<boolean> {
         const validCar = await this.findById(id);
+        if (!validCar) return false;
         const indisponivel = validCar!.isRented;
-        if(indisponivel || !validCar) return false;
+        if(indisponivel) return false;
 
         return true;
 

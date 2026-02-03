@@ -16,7 +16,7 @@ const input ={
 
 console.log(`Usuário:${input.id_user}`)
 console.log(`ID do Carro:${input.id_carro}`)
-console.log(`Devolução:${input.devolucao}`)
+console.log(`Devolução:${input.devolucao.toISOString()}`)
 
 try{
     const aluguel = await createRental.execute(input);
