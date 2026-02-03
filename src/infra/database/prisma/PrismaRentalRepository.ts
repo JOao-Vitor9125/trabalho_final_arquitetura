@@ -1,6 +1,6 @@
 import { injectable, inject } from "inversify";
 import { IRentRepo } from "../../../domain/repositories/IRentRepository";
-import { Rental } from "../../../domain/entities/Rental";
+import {Rental} from "../../../domain/entities/Rental";
 import {PrismaClient} from "@prisma/client";
 import {TYPES} from "../../../infra/containers/types";
 
@@ -11,17 +11,25 @@ export class PrismaRentalRespository implements IRentRepo{
     constructor(
         @inject(TYPES.PrismaCliente) private prisma:PrismaClient){}
 
-    async create(rental: Rental): Promise<void> {
-        await this.prisma.rents.create({
+    async create(rental: Rental): Promise<Rental> {
+        const created = await this.prisma.rents.create({
             data: {
                 userId: rental.tenant_id,
                 carId: rental.car_id,
                 car_placa: rental.car_placa,
                 startDate: rental.start_date,
-                expectedDate: rental.expected_date,
+                expectedDate: rental.expectedDate,
                 endDate: rental.end_date??null,
             }
         })
+        return new Rental(
+        created.userId, 
+        created.carId, 
+        created.car_placa!, 
+        created.startDate, 
+        created.expectedDate, 
+        created.endDate, 
+        created.id); 
     }
 
     async findRentalByTenant(tenant_id: string): Promise <Rental | null> {

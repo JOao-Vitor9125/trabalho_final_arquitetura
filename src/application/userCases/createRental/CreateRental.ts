@@ -41,19 +41,19 @@ export class CreateRental{
 
         const newRental= new Rental(id_user, id_carro, placa!, agora, devolucao, null);
 
-        await this.rentRepo.create(newRental);
+        const aluguel = await this.rentRepo.create(newRental);
 
         await this.carRepo.updateAvailableRent(placa, true);
 
         console.log(`Operação concluida!\nDados:
-            Id do locatário: ${newRental.tenant_id} |
-            Id do carro: ${newRental.car_id} |
-            Id do aluguel: ${newRental.rent_id} |
-            Data de inicio: ${newRental.start_date} |
-            Data de fim esperada: ${newRental.end_date} |
-            Placa do carro${newRental.car_placa}`);
-        
-        return newRental;
+            Id do locatário: ${aluguel.tenant_id} |
+            Id do carro: ${aluguel.car_id} |
+            Id do aluguel: ${aluguel.rent_id} |
+            Data de inicio: ${aluguel.start_date} |
+            Data de fim esperada: ${aluguel.expectedDate} |
+            Placa do carro: ${aluguel.car_placa}`);
+            
+        return aluguel;
     }
         
         

@@ -16,13 +16,9 @@ const input ={
 
 console.log(`Usuário:${input.id_user}`)
 console.log(`ID do Carro:${input.id_carro}`)
-console.log(`Devolução:${input.devolucao.toISOString()}`)
+console.log(`Devolução:${input.devolucao}`)
 
 try{
     const aluguel = await createRental.execute(input);
-    console.log(`Alguel realizado:`)
-    console.log(`Id: ${aluguel.rent_id}`)
-    console.log(`Data inicio: ${aluguel.start_date}`)
-    console.log(`Previsão de devolução: ${aluguel.expected_date}`)
 } catch (error:any){console.log("Erro na execução", error.message)}
 } main();

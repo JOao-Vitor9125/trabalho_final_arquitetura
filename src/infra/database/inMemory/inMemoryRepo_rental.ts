@@ -6,8 +6,11 @@ export class memoryPrismaRentalRespository implements IRentRepo{
     
     public alugueis:Rental[]=[];
 
-    async create(rental: Rental): Promise<void> {
+    async create(rental: Rental): Promise<Rental> {
+        rental.rent_id= "id de teste";
         this.alugueis.push(rental);
+
+        return rental;
     }
 
     async findRentalByTenant(tenant_id: string): Promise <Rental | null>{

@@ -37,7 +37,7 @@ describe('CreateRental', ()=>{
         expect(rental.tenant_id).toBe("1234");
         expect(rental.car_id).toBe("3932321");
         expect(carRepo.carroTable[0]?.isRented).toBe(true);
-        expect(rentalRepo.alugueis[0]?.expected_date).toBe(dataAmanha);
+        expect(rentalRepo.alugueis[0]?.expectedDate).toBe(dataAmanha);
         expect(rentalRepo.alugueis[0]!.start_date).toBeInstanceOf(Date);
     })
 
@@ -71,7 +71,7 @@ describe('CreateRental', ()=>{
 
         expect(carRepo.carroTable[0]?.isRented).toBe(true);
         expect(rentalRepo.alugueis[0]?.tenant_id).toBe('456');
-        expect(rentalRepo.alugueis[0]?.expected_date).toBe(dataAmanha);
+        expect(rentalRepo.alugueis[0]?.expectedDate).toBe(dataAmanha);
         expect(rentalRepo.alugueis).toHaveLength(1);
     })
 
